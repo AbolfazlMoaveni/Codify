@@ -28,21 +28,27 @@
     "plugins": [
       "expo-router",
       [
-        "expo-splash-screen",
+        
+        "expo-image-picker",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "photosPermission": "The app needs access to your photos to let you select images.",
+          "cameraPermission": "The app needs access to your camera to take photos."
         }
+        // "expo-splash-screen",
+        // {
+        //   "image": "./assets/images/splash-icon.png",
+        //   "imageWidth": 200,
+        //   "resizeMode": "contain",
+        //   "backgroundColor": "#ffffff",
+        //   "dark": {
+        //     "backgroundColor": "#000000"
+        //   }
+        // }
       ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
+      // "reactCompiler": true
     }
   }
 }

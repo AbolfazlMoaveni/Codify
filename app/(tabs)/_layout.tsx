@@ -6,14 +6,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: '#8E8E93',
+        tabBarInactiveTintColor: '#938e8e',
         tabBarStyle: {
           backgroundColor: '#F2F2F7',
           borderTopColor: '#C6C6C8',
         },
-        headerStyle: {
-          backgroundColor: '#F2F2F7',
-        },
+        // headerStyle: {
+        //   backgroundColor: '#F2F2F7',
+        // },
         headerTitleStyle: {
           fontWeight: '600',
         },
@@ -22,7 +22,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'خانه',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -31,13 +31,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="upload"
         options={{
-          title: 'Upload',
+          title: 'آپلود',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cloud-upload-outline" size={size} color={color} />
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="about"
         options={{
           title: 'About',
@@ -45,7 +45,7 @@ export default function TabLayout() {
             <Ionicons name="information-circle-outline" size={size} color={color} />
           ),
         }}
-      />
+      /> */}
     </Tabs>
   );
 }

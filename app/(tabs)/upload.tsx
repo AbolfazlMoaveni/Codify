@@ -18,12 +18,12 @@ export default function UploadScreen() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   // آدرس سرور را اینجا تنظیم کن
-  const API_URL = 'http://YOUR_SERVER_IP:8000'; 
+  const API_URL = 'http://10.238.14.229:8000'; 
 
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        'Vazir': require('../assets/fonts/Vazir.ttf'), // مطمئن شو مسیر درست است
+        'Vazir': require('../../assets/fonts/Vazir.ttf'), // مطمئن شو مسیر درست است
       });
       setFontsLoaded(true);
     }
@@ -105,8 +105,7 @@ export default function UploadScreen() {
 		
 		{downloadUrl && (
   <TouchableOpacity 
-    style={styles.downloadButton} 
-    onPress={() => Linking.openURL(downloadUrl)}
+    // onPress={() => Linking.openURL(downloadUrl)}
   >
     <Text style={styles.buttonText}>دانلود فایل .cpp</Text>
     <Ionicons name="download-outline" size={20} color="white" />

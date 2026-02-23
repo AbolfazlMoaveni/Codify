@@ -1,54 +1,45 @@
-import { Link } from 'expo-router';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { IconSymbol } from '@/components/ui/icon-symbol';
+// import jsulogo from '../../assets/images/jsu.svg'
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={styles.header}>
+        {/* <img src={jsulogo} alt="jsulogo"/> */}
         <Ionicons name="code-slash" size={64} color="#007AFF" />
-        <Text style={styles.title}>Image to CPP Converter</Text>
+        <Text style={styles.title}>تبدیل کد دست‌نویس به فایل قابل اجرا</Text>
         <Text style={styles.subtitle}>
-          Convert images to C++ code with AI-powered analysis
+          طراح: ابوالفضل معاونی
+        </Text>
+        <Text style={styles.subtitle}>
+          استاد راهنما: امین عنایت زارع
         </Text>
       </View>
 
       <View style={styles.features}>
         <View style={styles.featureCard}>
           <Ionicons name="image-outline" size={32} color="#007AFF" />
-          <Text style={styles.featureTitle}>Image Upload</Text>
+          <Text style={styles.featureTitle}>نحوه کار</Text>
           <Text style={styles.featureDescription}>
-            Upload images from gallery or take photos with camera
+            تصویر خود را در سکشن آپلود، بارگذاری کنید و منتظر پاسخ بمانید
           </Text>
         </View>
 
         <View style={styles.featureCard}>
           <Ionicons name="server-outline" size={32} color="#34C759" />
-          <Text style={styles.featureTitle}>AI Processing</Text>
+          <Text style={styles.featureTitle}>مدل OCR</Text>
           <Text style={styles.featureDescription}>
-            Server processes images and generates optimized C++ code
-          </Text>
-        </View>
-
-        <View style={styles.featureCard}>
-          <Ionicons name="document-text-outline" size={32} color="#FF9500" />
-          <Text style={styles.featureTitle}>Code Preview</Text>
-          <Text style={styles.featureDescription}>
-            View and copy generated C++ code with syntax highlighting
+            سرور به کمک Microsoft TrOCR و Post-processing کد مناسب را دریافت و سپس به کمک یک API Call به یک مدل هوش مصنوعی، از لحاظ سینتکس آن را بررسی و خطایابی میکند و نتیجه را باز میگرداند
           </Text>
         </View>
       </View>
-
-      <Link href="/(tabs)/upload" asChild>
-        <TouchableOpacity style={styles.ctaButton}>
-          <Ionicons name="rocket-outline" size={24} color="white" />
-          <Text style={styles.ctaText}>Start Converting</Text>
-        </TouchableOpacity>
-      </Link>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Made with ❤️ using Expo + FastAPI</Text>
+        <Text style={styles.footerText}>پروژه کارشناسی - دانشگاه صنعتی جندی شاپور دزفول</Text>
       </View>
+</ScrollView>
     </View>
   );
 }
@@ -67,6 +58,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
+    fontFamily: 'Vazir',
     color: '#1C1C1E',
     marginTop: 20,
     marginBottom: 10,
@@ -74,6 +66,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
+    fontFamily: 'Vazir',
     color: '#8E8E93',
     textAlign: 'center',
     lineHeight: 24,
@@ -97,12 +90,14 @@ const styles = StyleSheet.create({
   featureTitle: {
     fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Vazir',
     color: '#1C1C1E',
     marginTop: 12,
     marginBottom: 8,
   },
   featureDescription: {
     fontSize: 14,
+    fontFamily: 'Vazir',
     color: '#8E8E93',
     textAlign: 'center',
     lineHeight: 20,
@@ -124,6 +119,7 @@ const styles = StyleSheet.create({
   ctaText: {
     color: 'white',
     fontSize: 18,
+    fontFamily: 'Vazir',
     fontWeight: '600',
   },
   footer: {
@@ -132,6 +128,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
+    fontFamily: 'Vazir',
     color: '#C7C7CC',
     textAlign: 'center',
   },

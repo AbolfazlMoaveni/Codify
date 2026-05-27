@@ -31,8 +31,8 @@
         
         "expo-image-picker",
         {
-          "photosPermission": "The app needs access to your photos to let you select images.",
-          "cameraPermission": "The app needs access to your camera to take photos."
+          "photosPermission": "دسترسی به گالری برای آپلود کد",
+          "cameraPermission": "دسترسی به دوربین برای عکس‌گیری از کد"
         }
         // "expo-splash-screen",
         // {

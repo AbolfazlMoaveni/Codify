@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-// import jsulogo from '../../assets/images/jsu.svg'
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -21,19 +20,19 @@ export default function HomeScreen() {
       <View style={styles.features}>
         <View style={styles.featureCard}>
           <Ionicons name="image-outline" size={32} color="#007AFF" />
-          <Text style={styles.featureTitle}>نحوه کار</Text>
+          <Text style={styles.featureTitle}>عملکرد</Text>
           <Text style={styles.featureDescription}>
             تصویر خود را در سکشن آپلود، بارگذاری کنید و منتظر پاسخ بمانید
           </Text>
         </View>
 
-        <View style={styles.featureCard}>
+        {/* <View style={styles.featureCard}>
           <Ionicons name="server-outline" size={32} color="#34C759" />
           <Text style={styles.featureTitle}>مدل OCR</Text>
           <Text style={styles.featureDescription}>
             سرور به کمک Microsoft TrOCR و Post-processing کد مناسب را دریافت و سپس به کمک یک API Call به یک مدل هوش مصنوعی، از لحاظ سینتکس آن را بررسی و خطایابی میکند و نتیجه را باز میگرداند
           </Text>
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.footer}>
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
   featureCard: {
     backgroundColor: 'white',
     borderRadius: 16,
-    padding: 20,
+    padding: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -88,15 +87,15 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   featureTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '400',
     fontFamily: 'Vazir',
     color: '#1C1C1E',
-    marginTop: 12,
+    marginTop: 8,
     marginBottom: 8,
   },
   featureDescription: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'Vazir',
     color: '#8E8E93',
     textAlign: 'center',

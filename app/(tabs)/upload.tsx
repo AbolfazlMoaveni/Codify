@@ -131,20 +131,36 @@ export default function UploadScreen() {
 
   useEffect(() => {
     Font.loadAsync({ 'Vazir': require('../../assets/fonts/Vazir.ttf') })
-      .then(() => setFontsLoaded(true));
+      .catch((error) => {
+        // Fall back to the system font instead of blocking the UI forever.
+        console.error('Font load error:', error);
+      })
+      .finally(() => setFontsLoaded(true));
   }, []);
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-    });
-    if (!result.canceled) {
-      const asset = result.assets[0];
-      setCppContent('');
-      setDownloadUrl(null);
-      uploadImage(asset.uri, asset.mimeType);
+    try {
+      const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (!permission.granted) {
+        Alert.alert('خطا', 'دسترسی به گالری داده نشد');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        const asset = result.assets[0];
+        setCppContent('');
+        setDownloadUrl(null);
+        uploadImage(asset.uri, asset.mimeType);
+      }
+    } catch (error) {
+      console.error('Image picker error:', error);
+      Alert.alert('خطا', 'انتخاب تصویر ناموفق بود');
     }
   };
 
@@ -173,9 +189,15 @@ export default function UploadScreen() {
       }
 
       const data = await response.json();
+      if (!data || typeof data.formatted !== 'string') {
+        console.error('Unexpected server response:', data);
+        Alert.alert('خطا', 'پاسخ سرور نامعتبر بود');
+        return;
+      }
+
       setCppContent(data.formatted);
-      setDownloadUrl(`${API_URL}${data.download_url}`);
-      setOutputFilename(data.filename);
+      setDownloadUrl(data.download_url ? `${API_URL}${data.download_url}` : null);
+      setOutputFilename(data.filename ?? '');
       Alert.alert('موفقیت', 'کد با موفقیت استخراج شد!');
     } catch (error) {
       console.error('Upload error:', error);
@@ -185,8 +207,19 @@ export default function UploadScreen() {
     }
   };
 
-  const handleDownload = () => {
-    if (downloadUrl) Linking.openURL(downloadUrl);
+  const handleDownload = async () => {
+    if (!downloadUrl) return;
+    try {
+      const supported = await Linking.canOpenURL(downloadUrl);
+      if (!supported) {
+        Alert.alert('خطا', 'امکان باز کردن لینک دانلود وجود ندارد');
+        return;
+      }
+      await Linking.openURL(downloadUrl);
+    } catch (error) {
+      console.error('Download error:', error);
+      Alert.alert('خطا', 'دانلود فایل ناموفق بود');
+    }
   };
 
   if (!fontsLoaded) return <ActivityIndicator style={{ flex: 1 }} />;

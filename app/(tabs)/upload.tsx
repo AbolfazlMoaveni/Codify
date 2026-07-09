@@ -9,6 +9,9 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
+import { PrimaryButton } from '@/components/primary-button';
+import { FONT_FAMILY, MONOSPACE_FONT, shadow } from '@/constants/ui';
+
 // Types
 
 interface PillOption {
@@ -130,7 +133,7 @@ export default function UploadScreen() {
   const [outputFilename, setOutputFilename] = useState('');
 
   useEffect(() => {
-    Font.loadAsync({ 'Vazir': require('../../assets/fonts/Vazir.ttf') })
+    Font.loadAsync({ [FONT_FAMILY]: require('../../assets/fonts/Vazir.ttf') })
       .then(() => setFontsLoaded(true));
   }, []);
 
@@ -240,15 +243,15 @@ export default function UploadScreen() {
         )}
 
         {/* Upload button */}
-        <TouchableOpacity
-          style={[styles.uploadButton, isLoading && { opacity: 0.6 }]}
+        <PrimaryButton
+          label="انتخاب تصویر از گالری"
+          color="#0984E3"
+          icon="image-outline"
+          iconSize={22}
           onPress={pickImage}
           disabled={isLoading}
-          activeOpacity={0.8}
-        >
-          <Ionicons name="image-outline" size={22} color="white" style={{ marginLeft: 8 }} />
-          <Text style={styles.uploadButtonText}>انتخاب تصویر از گالری</Text>
-        </TouchableOpacity>
+          style={styles.uploadButton}
+        />
 
         {/* Loading */}
         {isLoading && (
@@ -275,10 +278,12 @@ export default function UploadScreen() {
 
         {/* Download button */}
         {downloadUrl && (
-          <TouchableOpacity style={styles.downloadButton} onPress={handleDownload} activeOpacity={0.8}>
-            <Ionicons name="download-outline" size={20} color="white" style={{ marginLeft: 8 }} />
-            <Text style={styles.uploadButtonText}>دانلود فایل .{ext}</Text>
-          </TouchableOpacity>
+          <PrimaryButton
+            label={`دانلود فایل .${ext}`}
+            color="#00B894"
+            icon="download-outline"
+            onPress={handleDownload}
+          />
         )}
 
         <View style={{ height: 40 }} />
@@ -292,28 +297,24 @@ const styles = StyleSheet.create({
   scroll:    { padding: 20 },
 
   header:   { alignItems: 'center', marginBottom: 24 },
-  title:    { fontSize: 22, fontFamily: 'Vazir', fontWeight: 'bold', color: '#2D3436' },
-  subtitle: { fontSize: 13, fontFamily: 'Vazir', color: '#636E72', marginTop: 4 },
+  title:    { fontSize: 22, fontFamily: FONT_FAMILY, fontWeight: 'bold', color: '#2D3436' },
+  subtitle: { fontSize: 13, fontFamily: FONT_FAMILY, color: '#636E72', marginTop: 4 },
 
   card: {
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    elevation: 2,
+    ...shadow({ opacity: 0.06, radius: 6, elevation: 2 }),
   },
 
   sectionLabelWrap: { marginBottom: 12 },
   sectionLabel: {
-    fontFamily: 'Vazir', fontWeight: 'bold',
+    fontFamily: FONT_FAMILY, fontWeight: 'bold',
     fontSize: 14, color: '#2D3436', textAlign: 'right',
   },
   sectionSub: {
-    fontFamily: 'Vazir', fontSize: 11,
+    fontFamily: FONT_FAMILY, fontSize: 11,
     color: '#B2BEC3', textAlign: 'right', marginTop: 2,
   },
 
@@ -328,27 +329,13 @@ const styles = StyleSheet.create({
     borderColor: '#DFE6E9',
     backgroundColor: '#F8F9FA',
   },
-  pillText:       { fontFamily: 'Vazir', fontSize: 13, color: '#636E72' },
+  pillText:       { fontFamily: FONT_FAMILY, fontSize: 13, color: '#636E72' },
   pillTextActive: { color: '#fff', fontWeight: 'bold' },
 
-  uploadButton: {
-    backgroundColor: '#0984E3',
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 16,
-    borderRadius: 14,
-    marginBottom: 14,
-    shadowColor: '#0984E3',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  uploadButtonText: { color: '#fff', fontFamily: 'Vazir', fontSize: 16, fontWeight: 'bold' },
+  uploadButton: { marginBottom: 14 },
 
   loadingBox:  { alignItems: 'center', paddingVertical: 30 },
-  loadingText: { marginTop: 12, fontFamily: 'Vazir', color: '#636E72' },
+  loadingText: { marginTop: 12, fontFamily: FONT_FAMILY, color: '#636E72' },
 
   codeHeader: {
     flexDirection: 'row-reverse',
@@ -356,26 +343,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  codeFilename: { fontFamily: 'Vazir', fontSize: 11, color: '#B2BEC3' },
+  codeFilename: { fontFamily: FONT_FAMILY, fontSize: 11, color: '#B2BEC3' },
   codeBox: { backgroundColor: '#1E272E', padding: 14, borderRadius: 10 },
   codeText: {
     color: '#55EFC4',
-    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
+    fontFamily: MONOSPACE_FONT,
     fontSize: 13,
     lineHeight: 20,
-  },
-
-  downloadButton: {
-    backgroundColor: '#00B894',
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 16,
-    borderRadius: 14,
-    shadowColor: '#00B894',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 4,
   },
 });

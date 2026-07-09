@@ -22,7 +22,14 @@ interface PillOption {
 
 //  Config
 
-const API_URL = 'http://10.177.185.113:8000';
+// The backend base URL is read from the EXPO_PUBLIC_API_URL environment
+// variable so it is never hardcoded in the source. Prefer an https:// URL in
+// production so uploaded images and returned code are transmitted encrypted.
+const API_URL = process.env.EXPO_PUBLIC_API_URL ?? '';
+
+// Allowed image MIME types and max upload size for basic client-side validation.
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10 MB
 
 const LANGUAGES: PillOption[] = [
   { label: 'C',    value: 'c',          icon: 'code-slash'     },
@@ -135,23 +142,60 @@ export default function UploadScreen() {
   useEffect(() => {
     Font.loadAsync({ [FONT_FAMILY]: require('../../assets/fonts/Vazir.ttf') })
       .then(() => setFontsLoaded(true));
+    Font.loadAsync({ 'Vazir': require('../../assets/fonts/Vazir.ttf') })
+      .catch((error) => {
+        // Fall back to the system font instead of blocking the UI forever.
+        console.error('Font load error:', error);
+      })
+      .finally(() => setFontsLoaded(true));
   }, []);
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-    });
-    if (!result.canceled) {
-      const asset = result.assets[0];
-      setCppContent('');
-      setDownloadUrl(null);
-      uploadImage(asset.uri, asset.mimeType);
+    try {
+      const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (!permission.granted) {
+        Alert.alert('خطا', 'دسترسی به گالری داده نشد');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        const asset = result.assets[0];
+
+        if (asset.mimeType && !ALLOWED_IMAGE_TYPES.includes(asset.mimeType.toLowerCase())) {
+          Alert.alert('خطا', 'فرمت تصویر پشتیبانی نمی‌شود');
+          return;
+        }
+        if (typeof asset.fileSize === 'number' && asset.fileSize > MAX_UPLOAD_BYTES) {
+          Alert.alert('خطا', 'حجم تصویر بیش از حد مجاز است (حداکثر ۱۰ مگابایت)');
+          return;
+        }
+
+        setCppContent('');
+        setDownloadUrl(null);
+        uploadImage(asset.uri, asset.mimeType);
+      }
+    } catch (error) {
+      console.error('Image picker error:', error);
+      Alert.alert('خطا', 'انتخاب تصویر ناموفق بود');
     }
   };
 
   const uploadImage = async (uri: string, mimeType?: string | null) => {
+    if (!API_URL) {
+      Alert.alert('خطا', 'آدرس سرور تنظیم نشده است (EXPO_PUBLIC_API_URL)');
+      return;
+    }
+    if (!/^https:\/\//i.test(API_URL) && !__DEV__) {
+      Alert.alert('خطا', 'ارتباط ناامن است؛ لطفاً از آدرس https استفاده کنید');
+      return;
+    }
+
     setIsLoading(true);
 
     const ext          = uri.split('.').pop()?.toLowerCase().split('?')[0] ?? 'jpg';
@@ -176,9 +220,15 @@ export default function UploadScreen() {
       }
 
       const data = await response.json();
+      if (!data || typeof data.formatted !== 'string') {
+        console.error('Unexpected server response:', data);
+        Alert.alert('خطا', 'پاسخ سرور نامعتبر بود');
+        return;
+      }
+
       setCppContent(data.formatted);
-      setDownloadUrl(`${API_URL}${data.download_url}`);
-      setOutputFilename(data.filename);
+      setDownloadUrl(data.download_url ? `${API_URL}${data.download_url}` : null);
+      setOutputFilename(data.filename ?? '');
       Alert.alert('موفقیت', 'کد با موفقیت استخراج شد!');
     } catch (error) {
       console.error('Upload error:', error);
@@ -188,8 +238,19 @@ export default function UploadScreen() {
     }
   };
 
-  const handleDownload = () => {
-    if (downloadUrl) Linking.openURL(downloadUrl);
+  const handleDownload = async () => {
+    if (!downloadUrl) return;
+    try {
+      const supported = await Linking.canOpenURL(downloadUrl);
+      if (!supported) {
+        Alert.alert('خطا', 'امکان باز کردن لینک دانلود وجود ندارد');
+        return;
+      }
+      await Linking.openURL(downloadUrl);
+    } catch (error) {
+      console.error('Download error:', error);
+      Alert.alert('خطا', 'دانلود فایل ناموفق بود');
+    }
   };
 
   if (!fontsLoaded) return <ActivityIndicator style={{ flex: 1 }} />;

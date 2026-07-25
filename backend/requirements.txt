@@ -1,0 +1,26 @@
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+Pillow==10.3.0
+requests==2.31.0
+numpy==1.26.4
+
+# ── OCR engines ───────────────────────────────────────────────────────────────
+# EasyOCR (downloads ~200MB model on first use)
+easyocr==1.7.1
+
+# TrOCR (downloads ~1.5GB model on first use)
+torch==2.3.0
+transformers==4.41.0
+
+# Tesseract 5 Python wrapper
+# ALSO requires Tesseract binary: https://github.com/UB-Mannheim/tesseract/wiki
+pytesseract==0.3.13
+
+# PaddleOCR (downloads ~15MB models on first use)
+paddlepaddle==2.6.1
+paddleocr==2.7.3
+
+# ── Optional AI syntax fix ────────────────────────────────────────────────────
+# Groq and Gemini use requests (already listed above)
+# openai==1.30.0   ← uncomment if using GPT-4o

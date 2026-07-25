@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { FONT_FAMILY, shadow } from '@/constants/ui';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     color: '#1C1C1E',
     marginTop: 20,
     marginBottom: 10,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     color: '#8E8E93',
     textAlign: 'center',
     lineHeight: 24,
@@ -80,23 +81,19 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 10,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    ...shadow({ opacity: 0.05, radius: 8, elevation: 2 }),
   },
   featureTitle: {
     fontSize: 16,
     fontWeight: '400',
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     color: '#1C1C1E',
     marginTop: 8,
     marginBottom: 8,
   },
   featureDescription: {
     fontSize: 12,
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     color: '#8E8E93',
     textAlign: 'center',
     lineHeight: 20,
@@ -109,16 +106,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 14,
     gap: 10,
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
+    ...shadow({ color: '#007AFF', offsetY: 4, opacity: 0.2, radius: 8, elevation: 4 }),
   },
   ctaText: {
     color: 'white',
     fontSize: 18,
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     fontWeight: '600',
   },
   footer: {
@@ -127,7 +120,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    fontFamily: 'Vazir',
+    fontFamily: FONT_FAMILY,
     color: '#C7C7CC',
     textAlign: 'center',
   },

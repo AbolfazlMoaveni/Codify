@@ -34,9 +34,9 @@ This project is a mobile application built with **React Native and Expo** that a
 * **Development Tools:** Node.js, npm/yarn, Expo CLI
 
 ## OCR Implementation 🔧
-# C++ OCR Backend — Setup & Deployment Guide
+### C++ OCR Backend — Setup & Deployment Guide
 
-## Project Structure
+#### Project Structure
 ```
 backend/
 ├── main.py           # FastAPI app (endpoints)
@@ -49,26 +49,26 @@ backend/
 
 ---
 
-## Option A — Run Locally (for development/testing)
+#### Option A — Run Locally (for development/testing)
 
-### 1. Install Python 3.10+
+##### 1. Install Python 3.10+
 Download from https://python.org
 
-### 2. Create a virtual environment
+##### 2. Create a virtual environment
 ```bash
 python -m venv venv
 source venv/bin/activate        # Linux/Mac
 venv\Scripts\activate           # Windows
 ```
 
-### 3. Install dependencies
+##### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
 > ⚠️ First run downloads the TrOCR model (~1.5 GB). This is cached after the first download.
 
-### 4. (Optional) Set AI API key for syntax checking
+##### 4. (Optional) Set AI API key for syntax checking
 ```bash
 # Linux/Mac
 export GROQ_API_KEY=your_key_here      # free at console.groq.com
@@ -79,14 +79,14 @@ export OPENAI_API_KEY=your_key_here
 set GROQ_API_KEY=your_key_here
 ```
 
-### 5. Run the server
+##### 5. Run the server
 ```bash
 python main.py
 ```
 
 Server starts at `http://0.0.0.0:8000`
 
-### 6. Find your local IP for the phone
+##### 6. Find your local IP for the phone
 ```bash
 # Linux/Mac
 ifconfig | grep inet
@@ -99,9 +99,9 @@ Update `API_URL` in `upload.tsx` to `http://YOUR_IP:8000`.
 
 ---
 
-## Option B — Deploy to a VPS (Recommended for Production)
+#### Option B — Deploy to a VPS (Recommended for Production)
 
-### Recommended providers (cheap/free tiers):
+##### Recommended providers (cheap/free tiers):
 | Provider        | Free Tier | Link |
 |----------------|-----------|------|
 | Railway         | ✅ Free    | railway.app |
@@ -109,7 +109,7 @@ Update `API_URL` in `upload.tsx` to `http://YOUR_IP:8000`.
 | DigitalOcean    | $6/mo      | digitalocean.com |
 | Hetzner         | €4/mo      | hetzner.com |
 
-### Steps for Railway (Easiest):
+##### Steps for Railway (Easiest):
 
 1. Go to https://railway.app and sign up with GitHub
 2. Click **New Project → Deploy from GitHub Repo**
@@ -127,9 +127,9 @@ Update `API_URL` in `upload.tsx` to `http://YOUR_IP:8000`.
 
 ---
 
-## Option C — Deploy with Docker (Any VPS)
+#### Option C — Deploy with Docker (Any VPS)
 
-### Dockerfile
+##### Dockerfile
 ```dockerfile
 FROM python:3.11-slim
 
@@ -142,7 +142,7 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-### Build and run:
+##### Build and run:
 ```bash
 docker build -t cpp-ocr-backend .
 docker run -p 8000:8000 -e GROQ_API_KEY=your_key cpp-ocr-backend
@@ -150,7 +150,7 @@ docker run -p 8000:8000 -e GROQ_API_KEY=your_key cpp-ocr-backend
 
 ---
 
-## Option D — Deploy on a University/Lab Server (Linux)
+#### Option D — Deploy on a University/Lab Server (Linux)
 
 If you have SSH access to a server:
 
@@ -181,7 +181,7 @@ python main.py
 
 ---
 
-## AI Syntax Fix Setup (Free Option: Groq)
+#### AI Syntax Fix Setup (Free Option: Groq)
 
 1. Go to https://console.groq.com
 2. Sign up for free
@@ -192,7 +192,7 @@ Groq is free, fast (uses Llama 3.3 70B), and needs no credit card for basic use.
 
 ---
 
-## API Endpoints
+#### API Endpoints
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -200,7 +200,7 @@ Groq is free, fast (uses Llama 3.3 70B), and needs no credit card for basic use.
 | POST | `/ocr` | Upload image → returns JSON with `raw`, `formatted`, `download_url` |
 | GET | `/download/{filename}` | Download the `.cpp` file |
 
-### Example response from `/ocr`:
+##### Example response from `/ocr`:
 ```json
 {
   "raw": "#include <iostream>\nint main () {...",

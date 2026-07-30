@@ -1,10 +1,10 @@
-# codify: Image to Code Converter 📸➡️💻
+# codify: Image to Code Converter
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is a mobile application built with **React Native and Expo** that allows users to convert handwritten code from an image into an executable file format. It leverages advanced OCR (Optical Character Recognition) and AI models to accurately interpret and translate the image content into various programming languages.
 
-## Table of Contents 📋
+## Table of Contents
 
 * [Features](#features-star)
 * [Tech Stack](#tech-stack-gear)
@@ -17,23 +17,23 @@ This project is a mobile application built with **React Native and Expo** that a
 * [Important Links](#important-links-link)
 * [Footer](#footer-mailbox)
 
-## Features ⭐
+## Features
 
-* **Image to Code Conversion:** Upload an image containing handwritten code and convert it into a text-based code representation. 🖼️➡️✍️
-* **Multiple Language Support:** Supports conversion to various programming languages, including C, C++, C#, Java, JavaScript, and PHP. ⚡
-* **Advanced OCR Engines:** Utilizes multiple OCR engines (Vision AI, Tesseract, PaddleOCR, EasyOCR, TrOCR) to provide flexibility and accuracy. 🧐
-* **AI Model Integration:** Integrates with AI models like Groq, Gemini, GPT-4o, and Eboo for enhanced code analysis and potential syntax error correction. 🤖
-* **Platform Compatibility:** Built with Expo, ensuring a single codebase for iOS and Android. 📱
-* **Downloadable Code:** Allows users to download the generated code as a file. 💾
-* **User-Friendly Interface:** Clean and intuitive UI designed for ease of use. ✨
+* **Image to Code Conversion:** Upload an image containing handwritten code and convert it into a text-based code representation.
+* **Multiple Language Support:** Supports conversion to various programming languages, including C, C++, C#, Java, JavaScript, and PHP.
+* **Advanced OCR Engines:** Utilizes multiple OCR engines (Vision AI, Tesseract, PaddleOCR, EasyOCR, TrOCR) to provide flexibility and accuracy.
+* **AI Model Integration:** Integrates with AI models like Groq, Gemini, GPT-4o, and Eboo for enhanced code analysis and potential syntax error correction.
+* **Platform Compatibility:** Built with Expo, ensuring a single codebase for iOS and Android.
+* **Downloadable Code:** Allows users to download the generated code as a file.
+* **User-Friendly Interface:** Clean and intuitive UI designed for ease of use.
 
-## Tech Stack ⚙️
+## Tech Stack
 
 * **Languages:** TypeScript, JavaScript, JSON, Markdown
 * **Frameworks/Libraries:** React, React Native, Expo, Expo Router, React Navigation, Reanimated, Jest, ESLint
 * **Development Tools:** Node.js, npm/yarn, Expo CLI
 
-## OCR Implementation 🔧
+## OCR Implementation
 ### C++ OCR Backend — Setup & Deployment Guide
 
 #### Project Structure
@@ -66,7 +66,7 @@ venv\Scripts\activate           # Windows
 pip install -r requirements.txt
 ```
 
-> ⚠️ First run downloads the TrOCR model (~1.5 GB). This is cached after the first download.
+> NOTE: First run downloads the TrOCR model (~1.5 GB). This is cached after the first download.
 
 ##### 4. (Optional) Set AI API key for syntax checking
 ```bash
@@ -104,8 +104,8 @@ Update `API_URL` in `upload.tsx` to `http://YOUR_IP:8000`.
 ##### Recommended providers (cheap/free tiers):
 | Provider        | Free Tier | Link |
 |----------------|-----------|------|
-| Railway         | ✅ Free    | railway.app |
-| Render          | ✅ Free    | render.com |
+| Railway         | Free    | railway.app |
+| Render          | Free    | render.com |
 | DigitalOcean    | $6/mo      | digitalocean.com |
 | Hetzner         | €4/mo      | hetzner.com |
 
@@ -210,7 +210,7 @@ Groq is free, fast (uses Llama 3.3 70B), and needs no credit card for basic use.
 }
 ```
 
-## Installation 🔧
+## Installation
 
 To set up and run this project locally, follow these steps:
 
@@ -241,7 +241,7 @@ To set up and run this project locally, follow these steps:
 
 This will start the Expo development server, and you can then run the application on an emulator or a physical device using the Expo Go app or a development build.
 
-## Usage 🕹️
+## Usage
 
 This application is designed to convert handwritten code from images into structured code files.
 
@@ -258,7 +258,7 @@ This application is designed to convert handwritten code from images into struct
 
 Imagine you have a picture of a C++ algorithm you jotted down. You can upload this image, select 'C++' as the language, and the app will process it, returning the C++ code, ready for compilation or further editing.
 
-## Project Structure 📂
+## Project Structure
 
 The project follows a standard Expo/React Native structure:
 
@@ -298,7 +298,7 @@ codify-Cpp/
 └── tsconfig.json           # TypeScript configuration
 ```
 
-## Contributing 🤝
+## Contributing
 
 Contributions are welcome! Please follow these guidelines:
 
@@ -310,16 +310,16 @@ Contributions are welcome! Please follow these guidelines:
 
 Please ensure your code adheres to the project's coding style and includes tests where applicable.
 
-## License 🔒
+## License
 
 This project is licensed under the **MIT License**.
 
-## Important Links 🔗
+## Important Links
 
 *   **Repository:** [https://github.com/AbolfazlMoaveni/codify-Cpp](https://github.com/AbolfazlMoaveni/codify-Cpp)
 *   **Expo Documentation:** [https://docs.expo.dev/](https://docs.expo.dev/)
 
-## Footer 📬
+## Footer
 
 This project was developed by Abolfazl Moaveni.
 
